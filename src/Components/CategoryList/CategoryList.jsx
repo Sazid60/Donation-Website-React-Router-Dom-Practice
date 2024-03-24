@@ -1,14 +1,16 @@
-import UseDonationData from "../../Hooks/UseDonationData/UseDonationData";
+
 import CardDefault from "../CardDefault/CardDefault";
 
 
-const CategoryList = () => {
-    const { data, loading } = UseDonationData()
+// eslint-disable-next-line react/prop-types
+const CategoryList = ({filteredData}) => {
+    
     // console.log(data)
     return (
         <div className="grid grid-cols-4 gap-8 max-w-7xl py-3 mx-auto mt-12">
             {
-                data.map(item=><CardDefault  key={item.id} item={item}/>)
+                // eslint-disable-next-line react/prop-types
+                filteredData.map(item=><CardDefault  key={item.id} item={item}/>)
             }
         </div>
     );
