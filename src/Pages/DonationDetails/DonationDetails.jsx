@@ -12,6 +12,7 @@ import {
     Button,
 } from "@material-tailwind/react";
 import { saveToLocalStorage } from "../../Utils/localStorage";
+import CustomSpinner from "../../Components/CustomSpinner/CustomSpinner";
 
 const DonationDetails = () => {
     const [singleData, setSingleData] = useState({});
@@ -21,6 +22,7 @@ const DonationDetails = () => {
     const handleDonate = () => {
         saveToLocalStorage(singleData)
     }
+
     useEffect(() => {
         if (data) {
             const individualData = data.find(item => item.id === +id);
@@ -29,6 +31,9 @@ const DonationDetails = () => {
         }
     }, [data, id])
 
+    if (loading) {
+        return <CustomSpinner></CustomSpinner>
+    }
     const { title, category, image, cardBg, textColor, categoryBg, description, price } =
         singleData || {};
 
