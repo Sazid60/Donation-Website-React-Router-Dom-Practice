@@ -11,20 +11,25 @@ import {
     Tooltip,
     Button,
 } from "@material-tailwind/react";
+import { saveToLocalStorage } from "../../Utils/localStorage";
 
 const DonationDetails = () => {
     const [singleData, setSingleData] = useState({});
     const { id } = useParams();
     const { data, loading } = UseDonationData();
+
+    const handleDonate = () => {
+        saveToLocalStorage(singleData)
+    }
     useEffect(() => {
         if (data) {
             const individualData = data.find(item => item.id === +id);
-            console.log(individualData)
+            // console.log(individualData)
             setSingleData(individualData)
         }
     }, [data, id])
 
-    const { title, category, image, cardBg, textColor, categoryBg, description,price } =
+    const { title, category, image, cardBg, textColor, categoryBg, description, price } =
         singleData || {};
 
     return (
@@ -46,6 +51,7 @@ const DonationDetails = () => {
                     >
                         <Button
                             style={{ backgroundColor: textColor }}
+                            onClick={handleDonate}
                             className="rounded-sm capitalize text-xl"
                             color="red"
                         >
@@ -54,11 +60,15 @@ const DonationDetails = () => {
                     </div>
                 </CardHeader>
                 <CardBody className="flex flex-col  w-full mx-auto">
-                    <Typography variant="h3" color="blue-gray">
-                        {title}
+                    <Typography className="text-4xl" variant="h4" color="blue-gray">
+                        {title || "Title Placeholder"}
                     </Typography>
-                    <Typography variant="lead" color="gray" className="mt-3 font-normal">
-                        {description}
+                    <Typography
+                        variant="lead"
+                        color="gray"
+                        className="mt-3 font-normal p-0"
+                    >
+                        {description || "Description Placeholder"}
                     </Typography>
                 </CardBody>
 
